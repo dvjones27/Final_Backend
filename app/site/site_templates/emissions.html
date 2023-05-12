@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+  
+<section class="bg-dark text-light text-center shadow mb-20">
+    <div class="container p-5 bg-dark">
+        <div class="row">
+            <div class="d-md-flex bg-dark align-items-center justify-content-evenly">
+                <h1 class="col text-center">Hello {{ current_user.first_name }}! This the Carbon Emissions Page</h1>
+            </div>
+            <div>
+                <h3 class="col text-center">Please Enter Your Emissions. </h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="text-center">
+    <div class="container p-5">
+        <div class="row align-items-center">
+            <h3 class="p-5">Perform Your Search, Entry, Update and Deletion Here</h3>
+            <section class="text-center p-5">
+                <form method="post" action = "{{ url_for('site.emissions') }}">
+                    
+                    <div className="flex flex-col bg-slate-900 p-3 m-3 justify-items-center w-auto  text-lg text-white items-center h-auto bg-auto">
+                        <h1 className="title">Daily Transportation</h1>
+                        <div>
+                        <h4 className="transportation_questions flex  m-2 text-md justify-items-center font-medium text-gray-900 dark:text-white">Select Your Daily Transportation Options</h4>
+                        <div>
+                        <label for="travel" className="flex m-2 text-sm font-medium text-gray-900 dark:text-white justify-center">How did you travel today?</label>
+                        <select name="travel" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        
+                            <option value="Drive">Drive</option>
+                            <option value="Public Transportation">Public Transportation</option>
+                            <option value="Non-Motorized Vehicle">Non-Motorized Vehicle</option>
+                            <option value="Did Not Travel">Did Not Travel Today</option>
+                          </select>
+                        </div>
+                        <div>
+                            <label for="vehicle" className="block m-2 text-sm font-medium text-gray-900 dark:text-white justify-center">What Type of Vehicle Do you Have?</label>
+                            <select name="vehicle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="PHEV">Plug-In Electric Vehicle</option>
+                                <option value="EV">Electric Vehicle</option>
+                                <option value="Standard Sedan">Standard Sedan</option>
+                                <option value="Standard Truck">Standard Truck</option>
+                                <option value="Standard Sedan">Other</option>
+                                
+                              </select>
+                              
+                        </div>
+                        <div>
+                            <label for="fuel" className="block m-2 text-sm font-medium text-gray-900 dark:text-white justify-center"> What type of fuel or power does your vehicle use?</label>
+                            <select name="fuel" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        
+                                <option value="Gas">Gas</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="PHEV">Plug-In Electric Vehicle</option>
+                                <option value="EV">Electric Vehicle</option>
+                                <option value="EV">Other</option>
+                              </select>
+                              
+                        </div>
+                        
+                        <div>
+                            <label for="carpool" className="transportation_carpool block m-2 text-sm font-medium text-gray-900 dark:text-white justify-center">Did you carpool today?</label>
+                            <select name="carpool" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> 
+        
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                              </select>
+                        </div>
+                        <div>
+                            <label for="miles" className="transportation_distance block m-2 text-sm font-medium text-gray-900 dark:text-white">How Many Miles Did You Travel Today?</label>
+                            <input type="text" name="miles" name="miles" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 mb-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Miles" required>
+                            </input>
+            
+                        </div>
+                    </div>
+            </div>
+                        
+                  
+                    <button type="submit" name="create" formaction="/">Create Emissions Input</button>
+                    
+                    
+                </form>
+            </section>
+            
+        </div>
+        
+        <div class="row">
+            
+            <h3 class="p-5">Here are the Emissions Results</h3>
+            <table>
+                <thead style="background-color: black; color: white">
+                <tr>
+                    <th><label for="ID">ID:</label><br></th>
+                    <th><label for="travel">Travel Type:</label><br></th>
+                    <th><label for="vehicle">Vehicle:</label><br></th>
+                    <th><label for="fuel">Fuel:</label><br></th>
+                    <th><label for="carpool">Carpool:</label><br></th>
+                    <th><label for="miles">Miles:</label><br></th>
+                    <th><label for="actions">Actions:</label><br></th>
+                </tr>
+            </thead>
+                {% for transportation in transportations %}
+                
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ transportation.travel }}</td>
+                    <td>{{ transportation.vehicle }}</td>
+                    <td>{{ transportation.fuel }}</td>
+                    <td>{{ transportation.carpool }}</td>
+                    <td>{{ transportation.miles }}</td>
+                    <td>
+                        
+                        <!-- <form  method="post" action="{{ url_for('site.update_car', id=car.vin) }}" style="justify-content: center; float: left" >
+                            <input type="hidden" name="method" value="Update">
+                            <button type="submit" class="fas fa-2xs btn btn-warning text-dark update-button" name="update">Edit</button>
+                        </form> -->
+                        
+                        <form method="post" action="/delete_car" style="justify-content: center; float: right" >
+                            <input type="hidden" name="method" value="Delete">
+                            <button type="submit" class="fas fa-2xs btn btn-danger text-dark delete-button" name="delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+              
+        </div>
+    </div>
+</section>
+{% endblock %}
+
