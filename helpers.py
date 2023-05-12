@@ -5,6 +5,8 @@ import decimal
 
 from models import User
 
+
+
 def token_required(our_flask_function):
     @wraps(our_flask_function)
     def decorated(*args, **kwargs):

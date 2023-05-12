@@ -18,16 +18,17 @@ def profile():
 @login_required
 def emissions():
     transportations = Transportation.query.all()
-    return render_template('emissions.html', transportations=transportations)
+    return render_template("emissions.html", transportations=transportations)
 
 @site.route('/create_transportation', methods=['POST'])
+@login_required
 def create_transportation():
     travel = request.form['travel']
     vehicle = request.form['vehicle']
     fuel = request.form['fuel']
     carpool = request.form['carpool']
-    miles = request.json['miles']
-    user_token = current_user_token.token
+    miles = request.form['miles']
+    user_token = current_user.token
     
     transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
     db.session.add(transportation)
@@ -63,12 +64,13 @@ def create_transportation():
     
 
 @site.route('/delete_transportation/<id>', methods=['POST'])
+@login_required
 def delete_transportation(id):
-    transportation = Transportation.query.get(id)
-    if transportation:
-        db.session.delete(transportation)
+    transportation = Transportation.query.all()
+    for transport in transportation:
+        db.session.delete(transport)
         db.session.commit()
-        return redirect(url_for('site.emissions'))
+        # return redirect(url_for('site.emissions'))
     
     
     return redirect(url_for('site.emissions'))

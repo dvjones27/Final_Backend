@@ -22,7 +22,7 @@
         <div class="row align-items-center">
             <h3 class="p-5">Perform Your Search, Entry, Update and Deletion Here</h3>
             <section class="text-center p-5">
-                <form method="post" action = "{{ url_for('site.emissions') }}">
+                <form method="post" action = "{{ url_for('site.create_transportation') }}">
                     
                     <div className="flex flex-col bg-slate-900 p-3 m-3 justify-items-center w-auto  text-lg text-white items-center h-auto bg-auto">
                         <h1 className="title">Daily Transportation</h1>
@@ -81,10 +81,10 @@
             
                         </div>
                     </div>
-            </div>
+                </div>
                         
                   
-                    <button type="submit" name="create" formaction="/">Create Emissions Input</button>
+                    <button type="submit">Create Emissions Input</button>
                     
                     
                 </form>
@@ -118,12 +118,9 @@
                     <td>{{ transportation.miles }}</td>
                     <td>
                         
-                        <!-- <form  method="post" action="{{ url_for('site.update_car', id=car.vin) }}" style="justify-content: center; float: left" >
-                            <input type="hidden" name="method" value="Update">
-                            <button type="submit" class="fas fa-2xs btn btn-warning text-dark update-button" name="update">Edit</button>
-                        </form> -->
                         
-                        <form method="post" action="/delete_car" style="justify-content: center; float: right" >
+                        
+                        <form method="post" action="/delete_transportation/<transportation>" style="justify-content: center; float: right" >
                             <input type="hidden" name="method" value="Delete">
                             <button type="submit" class="fas fa-2xs btn btn-danger text-dark delete-button" name="delete">Delete</button>
                         </form>
