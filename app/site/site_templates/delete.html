@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="bg-dark text-light text-center shadow mb-20">
+    <div class="container p-5 bg-dark">
+        <div class="row">
+            <div class="d-md-flex bg-dark align-items-center justify-content-evenly">
+                <h1 class="col text-center"><br>Hello {{ current_user.first_name }}! This the Carbon Emissions Delete Page</h1>
+            </div>
+            <div>
+                <h3 class="col text-center"></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="text-center">
+    <div class="container p-5">
+        <div class="row align-items-center">
+            <form action="" method="POST">
+                Click YES for Confirmation
+                <input type="submit" value="YES" class="btn btn-danger">
+                <a href="/create_transmissions.html">Cancel</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

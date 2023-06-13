@@ -1,3 +1,86 @@
+<style>
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .navbar a {
+      float: left;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    .dropdown {
+      float: left;
+      overflow: hidden;
+    }
+    
+    .dropdown .dropbtn {
+      cursor: pointer;
+      font-size: 16px;  
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 16px;
+      background-color: inherit;
+      font-family: inherit;
+      margin: 0;
+    }
+    
+    .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+      background-color: red;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .show {
+      display: block;
+    }
+    </style>
+
+<script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function dropFunction() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(e) {
+      if (!e.target.matches('.dropdown-button')) {
+      var dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu.classList.contains('show')) {
+            dropdownMenu.classList.remove('show');
+        }
+      }
+    }
+    </script>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,34 +102,45 @@
                 type="button" 
                 data-bs-toggle="collapse" 
                 data-bs-target="#navmenu"
-            ><span class="navbar-toggler-icon"></span></button>
+            ><span class="navbar-toggler-icon"></span></button>             
             <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="{{ url_for('site.home') }}" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('site.profile') }}" class="nav-link">Profile</a>
-                    </li>
+                <a href="{{ url_for('site.home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('site.profile') }}" class="nav-link">Profile</a>
+                <div class="dropdown">
+                
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{{ url_for('site.emissions') }}" class="nav-link">Emissions</a>
-                    </li>
-                    <li class="nav-item">
+                    <button class="nav-item dropdown-button" onclick="dropFunction()">
+                        
+                        Input Daily Emissions
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-item" id="dropdownMenu">
+                        <a href="{{ url_for('site.emissions') }}" class="nav-link dropdown-item">Emissions</a>
+                        <a href="{{ url_for('site.transportation') }}" class="nav-link dropdown-item">Transportation</a>
+                        <a href="{{ url_for('site.homeEnergy') }}" class="nav-link dropdown-item">Home Energy</a>
+                        <a href="{{ url_for('site.recycling') }}" class="nav-link dropdown-item">Recycling</a>
+                        <a href="{{ url_for('site.water') }}" class="nav-link dropdown-item">Water</a>
+                        <a href="{{ url_for('site.waste') }}" class="nav-link dropdown-item">Waste</a>
+                    </div>
+                </div>
+                    <a class="nav-item">
                         <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
-                    </li>
+                    </a>
                     {% else %}
-                    <li class="nav-item">
+                    <a class="nav-item">
                         <a href="{{ url_for('auth.signin') }}" class="nav-link">Sign In</a>
-                    </li>
-                    <li class="nav-item">
+                    </a>
+                    <a class="nav-item">
                         <a href="{{ url_for('auth.signup') }}" class="nav-link">Sign Up</a>
-                    </li>
+                    </a>
                     {% endif %}
-                </ul>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
         </div>
+        
     </nav>
+    
+    
 <!--  -->
 {% block content %}
 {% endblock %}

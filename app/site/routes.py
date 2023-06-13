@@ -20,9 +20,73 @@ def emissions():
     transportations = Transportation.query.all()
     return render_template("emissions.html", transportations=transportations)
 
-@site.route('/create_transportation', methods=['POST'])
+@site.route('/transportation', methods=['POST'])
 @login_required
-def create_transportation():
+def transportation():
+    travel = request.form['travel']
+    vehicle = request.form['vehicle']
+    fuel = request.form['fuel']
+    carpool = request.form['carpool']
+    miles = request.form['miles']
+    user_token = current_user.token
+    
+    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
+    db.session.add(transportation)
+    db.session.commit()
+    
+    return redirect(url_for('site.emissions'))
+
+@site.route('/homeEnergy', methods=['POST'])
+@login_required
+def homeEnergy():
+    travel = request.form['travel']
+    vehicle = request.form['vehicle']
+    fuel = request.form['fuel']
+    carpool = request.form['carpool']
+    miles = request.form['miles']
+    user_token = current_user.token
+    
+    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
+    db.session.add(transportation)
+    db.session.commit()
+    
+    return redirect(url_for('site.emissions'))
+
+@site.route('/recycling', methods=['POST'])
+@login_required
+def recycling():
+    travel = request.form['travel']
+    vehicle = request.form['vehicle']
+    fuel = request.form['fuel']
+    carpool = request.form['carpool']
+    miles = request.form['miles']
+    user_token = current_user.token
+    
+    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
+    db.session.add(transportation)
+    db.session.commit()
+    
+    return redirect(url_for('site.emissions'))
+
+@site.route('/water', methods=['POST'])
+@login_required
+def water():
+    travel = request.form['travel']
+    vehicle = request.form['vehicle']
+    fuel = request.form['fuel']
+    carpool = request.form['carpool']
+    miles = request.form['miles']
+    user_token = current_user.token
+    
+    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
+    db.session.add(transportation)
+    db.session.commit()
+    
+    return redirect(url_for('site.emissions'))
+
+@site.route('/waste', methods=['POST'])
+@login_required
+def waste():
     travel = request.form['travel']
     vehicle = request.form['vehicle']
     fuel = request.form['fuel']
@@ -66,12 +130,40 @@ def create_transportation():
 @site.route('/delete_transportation/<id>', methods=['POST'])
 @login_required
 def delete_transportation(id):
-    transportation = Transportation.query.all()
-    for transport in transportation:
-        db.session.delete(transport)
-        db.session.commit()
+    transportations = Transportation.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if transportations:
+            db.session.delete(transportations)
+            db.session.commit()
+            return redirect(url_for('site.emissions'))
+        return render_template('/delete.html')
+    
+    
+    # transportation = Transportation.query.get(id)
+    # db.session.delete(transportation)
+    # db.session.commit()
+    # response = transportation_schema.dump(transportation)
+    # return jsonify(response)
+    
+    
+    # transportation = Transportation.query.get(id)
+    # if request.method == 'POST':
+    #     if transportation:
+    #         db.session.delete(transportation)
+    #         db.session.commit()
+    #         return redirect(urs_for('site.emissions'))
+    
+    # # for transport in transportation:
+    # #     db.session.delete(transport)
+    # #     db.session.commit()
+    # return redirect(url_for('site.emissions'))
+    
+    # transportation = Transportation.query.all()
+    # for transport in transportation:
+    #     db.session.delete(transport)
+    #     db.session.commit()
         # return redirect(url_for('site.emissions'))
     
     
-    return redirect(url_for('site.emissions'))
+    # return redirect(url_for('site.emissions'))
 
