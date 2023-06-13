@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for
-from models import db, User, Transportation, transportation_schema, transportations_schema
+from models import db, User, Transportation, transportation_schema, transportations_schema, HomeEnergy, homeEnergy_schema, homeEnergys_schema
 from flask_login import current_user, login_required
 
 
@@ -39,18 +39,25 @@ def transportation():
 @site.route('/homeEnergy', methods=['POST'])
 @login_required
 def homeEnergy():
-    travel = request.form['travel']
-    vehicle = request.form['vehicle']
-    fuel = request.form['fuel']
-    carpool = request.form['carpool']
-    miles = request.form['miles']
+    dishwasher = request.form['dishwasher']
+    dishwasherLoads = request.form['dishwasherLoads']
+    washer = request.form['washer']
+    washerLoads = request.form['washerLoads']
+    dryer = request.form['dryer']
+    dryerLoads = request.form['dryerLoads']
+    lights = request.form['lights']
+    lightsNumber = request.form['lightsNumber']
+    lightsTime = request.form['lightsTime']
+    hvac = request.form['hvac']
+    hvacTime = request.form['hvacTime']
+    hvacTemp= request.form['hvacTemp']
     user_token = current_user.token
     
-    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
-    db.session.add(transportation)
+    homeEnergy = HomeEnergy(dishwasher = dishwasher, dishwasherLoads = dishwasherLoads, washer = washer, washerLoads = washerLoads, dryer = dryer, dryerLoads = dryerLoads, lights = lights, lightsTime = lightsTime, hvac = hvac, hvacTime = hvacTime, hvacTemp = hvacTemp, user_token = user_token )
+    db.session.add(homeEnergy)
     db.session.commit()
     
-    return redirect(url_for('site.emissions'))
+    return redirect(url_for('site.homeEnergy'))
 
 @site.route('/recycling', methods=['POST'])
 @login_required

@@ -57,11 +57,11 @@ class Transportation(db.Model):
     travel = db.Column(db.String(75), nullable = False)
     vehicle = db.Column(db.String(75), nullable = False)
     fuel = db.Column(db.String(75), nullable = False)
-    carpool = db.Column(db.String(75), nullable = False)
+    carpool = db.Column(db.String(5), nullable = False)
     miles = db.Column(db.String(5), nullable = False)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, travel, vehicle, fuel, carpool, miles, user_token, id = ''):
+    def __init__(self, travel, vehicle, fuel, carpool, miles, user_token):
         self.id = self.set_id()
         self.travel = travel
         self.vehicle = vehicle
@@ -83,6 +83,50 @@ class TransportationSchema(ma.Schema):
 
 transportation_schema = TransportationSchema()
 transportations_schema = TransportationSchema(many=True)
+
+
+class HomeEnergy(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    dishwasher = db.Column(db.String(75), nullable = False)
+    dishwasherLoads = db.Column(db.Integer, nullable = False)
+    washer = db.Column(db.String(75), nullable = False)
+    washerLoads = db.Column(db.Integer, nullable = False)
+    dryer = db.Column(db.String(75), nullable = False)
+    dryerLoads = db.Column(db.Integer, nullable = False) 
+    lights = db.Column(db.String(75), nullable = False)
+    lightsTime = db.Column(db.Integer, nullable = False)
+    hvac = db.Column(db.String(75), nullable = False)
+    hvacTime = db.Column(db.Integer, nullable = False)
+    hvacTemp = db.Column(db.Integer, nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+    
+    def __init__(self, dishwasher, dishwasherLoads, washer, washerLoads, dryer, dryerLoads, lights,lightsTime, hvac, hvacTime, hvacTemp,  user_token):
+        self.dishwashe = dishwasher
+        self.dishwasherLoads = dishwasherLoads
+        self.washer = washer
+        self.washerLoads = washerLoads
+        self.dryer = dryer
+        self.dryerLoads = dryerLoads
+        self.lights = lights
+        self.lightsTime = lightsTime
+        self.hvac = hvac
+        self.hvacTime = hvacTime
+        self.hvacTemp = hvacTemp
+        self.user_token = user_token
+
+
+    def __repr__(self):
+        return f'The following contact has been added to the phonebook: {self.first_name} {self.last_name}'
+
+    def set_id(self):
+        return (secrets.token_urlsafe())
+
+class HomeEnergySchema(ma.Schema):
+    class Meta:
+        fields = ['dishwasher', 'dishwasherLoads', 'washer', 'washerLoads', 'dryer', 'dryerLoads', 'lights','lightsTime', 'hvac', 'hvacTime', 'hvacTemp']
+
+homeEnergy_schema = HomeEnergySchema()
+homeEnergys_schema = HomeEnergySchema(many=True)
 
 
 # class Car(db.Model):
