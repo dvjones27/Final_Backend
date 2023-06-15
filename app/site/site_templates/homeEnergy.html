@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+  
+<section class="bg-dark text-light text-center shadow mb-20">
+    <div class="container p-5 bg-dark">
+        <div class="row">
+            <div class="d-md-flex bg-dark align-items-center justify-content-evenly">
+                <h1 class="col text-center"><br>Hello {{ current_user.first_name }}! This  Home Energy Page</h1>
+            </div>
+            <div>
+                <h3 class="col text-center">Please Enter Your Daily Home Energy. </h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="text-center">
+    <div class="container p-5">
+        <div class="row align-items-center">
+            
+            <form method="post" action = "{{ url_for('site.create_homeEnergy') }}">
+                    
+                    
+                    
+                    <div className="flex flex-col bg-slate-900 p-3 m-3 justify-items-center w-50%  text-lg text-white items-center h-auto bg-auto">
+                        
+                        <div>
+                        <h4 className="homeEnergy_questions flex m-2 text-md justify-items-center font-medium text-gray-900 dark:text-white">Select Your Daily Home Energy Options</h4>
+                        <div>
+                            
+                            <label htmlFor="dishwasher">Did you run the Dishwasher (DW) today?</label>
+                            <select id = "dishwasher" name="dishwasher">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>   
+                            </select>
+            
+                        </div>
+                        <div>
+                            
+                            <label htmlFor="dishwasherLoads">Number of Dishwasher Loads run today?</label>
+                            <input type="number" name="dishwasherLoads" placeholder="Dishwasher Loads" autofocus>
+                
+                        </div>
+                        <div>
+                            
+                            <label htmlFor="washer">Did you run the Washing Machine today?</label>
+                            <select id = "washer" name="washer">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>   
+                            </select>
+                            
+                        </div>
+                        <div>
+                            
+                            <label htmlFor="washerLoads">Number of Washing Machine Loads run today?</label>
+                            <input type="number" name="washerLoads" placeholder="Washer Loads" autofocus>
+                            
+                        </div>
+                        <div>
+                            
+                            <label htmlFor="dryer">Did you run the Dryer today?</label>
+                            <select id = "dryer" name="dryer">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>   
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label htmlFor="dryerLoads">Number of Dryer Loads run today?</label>
+                            <input type="number" name="dryerLoads" placeholder="Dryer Loads" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="lights">Did you leave any Lights on today?</label>
+                            <select id = "lights" name="lights">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>   
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="lightsNumber">Number of Lights left  on today?</label>
+                            <input type="number" name="lightsNumber" placeholder="Number of Lights" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="lightsTime">Time Lights left on?</label>
+                            <input type="number" name="lightsTime" placeholder="Lights Time On (min)" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="hvac">Did you run the HVAC today?</label>
+                            <select id = "hvac" name="hvac">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>   
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="hvacTime">Time HVAC run today?</label>
+                            <input type="number" name="hvacTime" placeholder="HVAC Time On (hr)" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="hvacTemp">HVAC Temp?</label>
+                            <input type="number" name="hvacTemp" placeholder="HVAC Temp (°C)" autofocus>
+                        </div>
+
+                        
+            
+                    </div>
+                </div>
+                        
+                  
+                    <button type="submit">Create Daily Home Energy Input</button>
+                    
+                    
+                </form>
+            </section>
+            
+        </div>
+        
+        <div class="row align-items-center justify-center">
+            
+            <h3 class="p-5">Here are the Home Energy Emissions Results</h3>
+            <table class="table text-center aligm-items-center justify-center w-auto h-auto">
+                <thead style="background-color: black; color: white">
+                <tr>
+                    <th><label for="ID">ID:</label><br></th>
+                    <th><label for="dishwasher">DW:</label><br></th>
+                    <th><label for="dishwasherLoads">DW Loads:</label><br></th>
+                    <th><label for="washer">Washer:</label><br></th>
+                    <th><label for="washerLoads">Washer Loads:</label><br></th>
+                    <th><label for="dryer">Dryer:</label><br></th>
+                    <th><label for="dryerLoads">Dryer Loads:</label><br></th>
+                    <th><label for="lights">Lights:</label><br></th>
+                    <th><label for="lightsNumber">Num Lights On:</label><br></th>
+                    <th><label for="lightsTime">Time Lights On (min):</label><br></th>
+                    <th><label for="hvas">HVAC:</label><br></th>
+                    <th><label for="hvacTime">Time HVAC On (hr):</label><br></th>
+                    <th><label for="hvacTemp">HVAC Temp (°C):</label><br></th>
+                    <th><label for="actions">Actions:</label><br></th>
+                </tr>
+            </thead>
+                {% for homeEnergy in homeEnergys %}
+                
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ homeEnergy.dishwasher }}</td>
+                    <td>{{ homeEnergy.dishwasherLoads }}</td>
+                    <td>{{ homeEnergy.washer }}</td>
+                    <td>{{ homeEnergy.washerLoads }}</td>
+                    <td>{{ homeEnergy.dryer }}</td>
+                    <td>{{ homeEnergy.dryerLoads }}</td>
+                    <td>{{ homeEnergy.lights }}</td>
+                    <td>{{ homeEnergy.lightsNumber }}</td>
+                    <td>{{ homeEnergy.lightsTime }}</td>
+                    <td>{{ homeEnergy.hvac }}</td>
+                    <td>{{ homeEnergy.hvacTime }}</td>
+                    <td>{{ homeEnergy.hvacTemp }}</td>
+                    
+                    <td class="align-items: center; justify-content: space-evenly; ">
+                        
+                        
+                        <form method="PUT" action="/update_homeEnergy/<id>"  style="align-items: center; justify-content: space-evenly; float: right; position: relative; left: -50%; margin: 2px" >
+                            <input type="hidden" name="UpdateHomeEnergy" value="UpdateHomeEnergy">
+                            <button type="submit" class="fas btn btn-warning text-dark update-button" name="updateHomeEnergy"><i class="fa-regular fa-md fa-pen-nib"></i></button>
+                        </form>
+                        <form method="post" action="/delete_homeEnergy/<id>" style="align-items: center; justify-content: space-evenly; float: left; position: relative; right: -50%; margin: 2px" >
+                            <input type="hidden" name="method" value="Delete">
+                            <button type="submit" class="fas btn btn-danger text-dark delete-button" name="delete"><i class="fa-regular fa-md fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+              
+        </div>
+    </div>
+</section>
+{% endblock %}
+

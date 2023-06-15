@@ -22,10 +22,10 @@
         <div class="row align-items-center">
             <h3 class="p-5">Perform Your Search, Entry, Update and Deletion Here</h3>
             <section class="text-center p-5">
-                <form method="post" action = "{{ url_for('site.transportation') }}">
+                <form method="post" action = "{{ url_for('site.create_transportation') }}">
                     
                     <div className="flex flex-col bg-slate-900 p-3 m-3 justify-items-center w-auto  text-lg text-white items-center h-auto bg-auto">
-                        <a href="{{ url_for('site.transportation') }}" class="nav-link dropdown-item">
+                        <a href="{{ url_for('site.create_transportation') }}" class="nav-link dropdown-item">
                             <h1 className="title">Daily Transportation</h1>
                         </a>
                         
@@ -97,7 +97,7 @@
         
         <div class="row">
             
-            <h3 class="p-5">Here are the Emissions Results</h3>
+            <h3 class="p-5">Here are the Daily Transmission Results</h3>
             <table>
                 <thead style="background-color: black; color: white">
                 <tr>

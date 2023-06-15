@@ -94,20 +94,23 @@ class HomeEnergy(db.Model):
     dryer = db.Column(db.String(75), nullable = False)
     dryerLoads = db.Column(db.Integer, nullable = False) 
     lights = db.Column(db.String(75), nullable = False)
+    lightsNumber = db.Column(db.Integer, nullable = False)
     lightsTime = db.Column(db.Integer, nullable = False)
     hvac = db.Column(db.String(75), nullable = False)
     hvacTime = db.Column(db.Integer, nullable = False)
     hvacTemp = db.Column(db.Integer, nullable = False)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
     
-    def __init__(self, dishwasher, dishwasherLoads, washer, washerLoads, dryer, dryerLoads, lights,lightsTime, hvac, hvacTime, hvacTemp,  user_token):
-        self.dishwashe = dishwasher
+    def __init__(self, dishwasher, dishwasherLoads, washer, washerLoads, dryer, dryerLoads, lights, lightsNumber, lightsTime, hvac, hvacTime, hvacTemp,  user_token):
+        self.id = self.set_id()
+        self.dishwasher = dishwasher
         self.dishwasherLoads = dishwasherLoads
         self.washer = washer
         self.washerLoads = washerLoads
         self.dryer = dryer
         self.dryerLoads = dryerLoads
         self.lights = lights
+        self.lightsNumber = lightsNumber
         self.lightsTime = lightsTime
         self.hvac = hvac
         self.hvacTime = hvacTime
@@ -123,7 +126,7 @@ class HomeEnergy(db.Model):
 
 class HomeEnergySchema(ma.Schema):
     class Meta:
-        fields = ['dishwasher', 'dishwasherLoads', 'washer', 'washerLoads', 'dryer', 'dryerLoads', 'lights','lightsTime', 'hvac', 'hvacTime', 'hvacTemp']
+        fields = ['dishwasher', 'dishwasherLoads', 'washer', 'washerLoads', 'dryer', 'dryerLoads', 'lights',  'lightsNumber','lightsTime', 'hvac', 'hvacTime', 'hvacTemp']
 
 homeEnergy_schema = HomeEnergySchema()
 homeEnergys_schema = HomeEnergySchema(many=True)

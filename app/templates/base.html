@@ -1,71 +1,10 @@
 <style>
-    .navbar {
-      overflow: hidden;
-      background-color: #333;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    .navbar a {
-      float: left;
-      font-size: 16px;
-      color: white;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
-    
-    .dropdown {
-      float: left;
-      overflow: hidden;
-    }
-    
-    .dropdown .dropbtn {
-      cursor: pointer;
-      font-size: 16px;  
-      border: none;
-      outline: none;
-      color: white;
-      padding: 14px 16px;
-      background-color: inherit;
-      font-family: inherit;
-      margin: 0;
-    }
-    
-    .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-      background-color: red;
-    }
-    
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-    
-    .dropdown-content a {
-      float: none;
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-    }
-    
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
-    
-    .show {
-      display: block;
-    }
     </style>
 
 <script>
     /* When the user clicks on the button, 
     toggle between hiding and showing the dropdown content */
-    function dropFunction() {
+    function emissDropFunction() {
       document.getElementById("dropdownMenu").classList.toggle("show");
     }
     
@@ -95,7 +34,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
-        <div class="container">
+        <div class="container nav">
             <a href="{{ url_for('site.home') }}" class="navbar-brand">Carbon Emissions</a>
             <button 
                 class="navbar-toggler" 
@@ -106,21 +45,19 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <a href="{{ url_for('site.home') }}" class="nav-link">Home</a>
                 <a href="{{ url_for('site.profile') }}" class="nav-link">Profile</a>
-                <div class="dropdown">
-                
+                <div class="emissions-dropdown">
                     {% if current_user.is_authenticated %}
-                    <button class="nav-item dropdown-button" onclick="dropFunction()">
-                        
+                    <button class="nav-item dropdown-button" onclick="emissDropFunction()">
                         Input Daily Emissions
-                        <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-regular fa-angle-down"></i>
                     </button>
-                    <div class="dropdown-item" id="dropdownMenu">
-                        <a href="{{ url_for('site.emissions') }}" class="nav-link dropdown-item">Emissions</a>
-                        <a href="{{ url_for('site.transportation') }}" class="nav-link dropdown-item">Transportation</a>
-                        <a href="{{ url_for('site.homeEnergy') }}" class="nav-link dropdown-item">Home Energy</a>
-                        <a href="{{ url_for('site.recycling') }}" class="nav-link dropdown-item">Recycling</a>
-                        <a href="{{ url_for('site.water') }}" class="nav-link dropdown-item">Water</a>
-                        <a href="{{ url_for('site.waste') }}" class="nav-link dropdown-item">Waste</a>
+                    <div class="dropdown-items" id="dropdownMenu">
+                        <a href="{{ url_for('site.emissions') }}" class="nav-link">Emissions</a>
+                        <a href="{{ url_for('site.transportations') }}" class="nav-link">Transportation</a>
+                        <a href="{{ url_for('site.homeEnergys') }}" class="nav-link">Home Energy</a>
+                        <a href="{{ url_for('site.recycling') }}" class="nav-link">Recycling</a>
+                        <a href="{{ url_for('site.water') }}" class="nav-link">Water</a>
+                        <a href="{{ url_for('site.waste') }}" class="nav-link">Waste</a>
                     </div>
                 </div>
                     <a class="nav-item">
@@ -134,7 +71,7 @@
                         <a href="{{ url_for('auth.signup') }}" class="nav-link">Sign Up</a>
                     </a>
                     {% endif %}
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+                    <a href="javascript:void(0);" class="icon" onclick="emissDropFunction()">&#9776;</a>
             </div>
         </div>
         
