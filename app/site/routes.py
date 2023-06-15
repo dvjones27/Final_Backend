@@ -17,8 +17,9 @@ def profile():
 @site.route('/emissions')
 @login_required
 def emissions():
-    # transportations = Transportation.query.all()
-    return render_template("emissions.html", transportation=transportation)
+    transportations = Transportation.query.all()
+    homeEnergys = HomeEnergy.query.all()
+    return render_template("emissions.html", transportations=transportations, homeEnergys=homeEnergys )
 
 @site.route('/transportations')
 @login_required
