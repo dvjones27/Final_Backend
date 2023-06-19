@@ -132,33 +132,131 @@ homeEnergy_schema = HomeEnergySchema()
 homeEnergys_schema = HomeEnergySchema(many=True)
 
 
-# class Car(db.Model):
-#     vin = db.Column(db.String(17), primary_key=True)
-#     make = db.Column(db.String(75), unique = False, nullable = False)
-#     model = db.Column(db.String(75), unique = False, nullable = False)
-#     year = db.Column(db.Integer,  unique = False, nullable = False)
-#     color = db.Column(db.String, unique = False, nullable = False)
-#     user_id = db.Column(db.String, db.ForeignKey('user.id'), nullable=False, default = '')
-#     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+class Recycling(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    paper = db.Column(db.String(75), nullable = False)
+    paperAmount = db.Column(db.Integer, nullable = False)
+    glass = db.Column(db.String(75), nullable = False)
+    glassAmount = db.Column(db.Integer, nullable = False)
+    plastic = db.Column(db.String(75), nullable = False)
+    plasticAmount = db.Column(db.Integer, nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
     
-    
-#     def __init__(self,  vin, make, model, year, color,  user_id):
-#         self.vin = vin
-#         self.make = make
-#         self.model = model
-#         self.year = year
-#         self.color = color
-#         self.user_id = user_id
-    
-    
-#     def __repr__(self):
-#         return f'Car {self.year} {self.make} {self.model} has been added to the database'
-    
- 
-# class CarSchema(ma.Schema):
-#     class Meta:
-#         fields = ['vin', 'make', 'model', 'year', 'color', 'user_id']
+    def __init__(self, paper, paperAmount, glass, glassAmount,plastic, plasticAmount,   user_token):
+        self.id = self.set_id()
+        self.paper = paper
+        self.paperAmount = paperAmount
+        self.glass = glass
+        self.glassAmount = glassAmount
+        self.plastic = plastic
+        self.plasticAmount = plasticAmount
+        self.user_token = user_token
 
-# car_schema = CarSchema()
-# cars_schema = CarSchema(many=True)
+
+    def __repr__(self):
+        return f'The following contact has been added to the phonebook: {self.first_name} {self.last_name}'
+
+    def set_id(self):
+        return (secrets.token_urlsafe())
+
+class RecyclingSchema(ma.Schema):
+    class Meta:
+        fields = ['paper', 'paperAmount', 'glass', 'glassAmount', 'plastic', 'plasticAmount']
+
+recycling_schema = RecyclingSchema()
+recyclings_schema = RecyclingSchema(many=True)
+
+
+class Water(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    shower = db.Column(db.String(75), nullable = False)
+    showerTime = db.Column(db.Integer, nullable = False)
+    washer = db.Column(db.String(75), nullable = False)
+    washerLoads = db.Column(db.Integer, nullable = False)
+    dryer = db.Column(db.String(75), nullable = False)
+    dryerLoads = db.Column(db.Integer, nullable = False) 
+    lights = db.Column(db.String(75), nullable = False)
+    lightsNumber = db.Column(db.Integer, nullable = False)
+    lightsTime = db.Column(db.Integer, nullable = False)
+    hvac = db.Column(db.String(75), nullable = False)
+    hvacTime = db.Column(db.Integer, nullable = False)
+    hvacTemp = db.Column(db.Integer, nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+    
+    def __init__(self, dishwasher, dishwasherLoads, washer, washerLoads, dryer, dryerLoads, lights, lightsNumber, lightsTime, hvac, hvacTime, hvacTemp,  user_token):
+        self.id = self.set_id()
+        self.dishwasher = dishwasher
+        self.dishwasherLoads = dishwasherLoads
+        self.washer = washer
+        self.washerLoads = washerLoads
+        self.dryer = dryer
+        self.dryerLoads = dryerLoads
+        self.lights = lights
+        self.lightsNumber = lightsNumber
+        self.lightsTime = lightsTime
+        self.hvac = hvac
+        self.hvacTime = hvacTime
+        self.hvacTemp = hvacTemp
+        self.user_token = user_token
+
+
+    def __repr__(self):
+        return f'The following contact has been added to the phonebook: {self.first_name} {self.last_name}'
+
+    def set_id(self):
+        return (secrets.token_urlsafe())
+
+class WaterSchema(ma.Schema):
+    class Meta:
+        fields = ['dishwasher', 'dishwasherLoads', 'washer', 'washerLoads', 'dryer', 'dryerLoads', 'lights',  'lightsNumber','lightsTime', 'hvac', 'hvacTime', 'hvacTemp']
+
+water_schema = WaterSchema()
+waters_schema = WaterSchema(many=True)
+
+
+class Waste(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    dishwasher = db.Column(db.String(75), nullable = False)
+    dishwasherLoads = db.Column(db.Integer, nullable = False)
+    washer = db.Column(db.String(75), nullable = False)
+    washerLoads = db.Column(db.Integer, nullable = False)
+    dryer = db.Column(db.String(75), nullable = False)
+    dryerLoads = db.Column(db.Integer, nullable = False) 
+    lights = db.Column(db.String(75), nullable = False)
+    lightsNumber = db.Column(db.Integer, nullable = False)
+    lightsTime = db.Column(db.Integer, nullable = False)
+    hvac = db.Column(db.String(75), nullable = False)
+    hvacTime = db.Column(db.Integer, nullable = False)
+    hvacTemp = db.Column(db.Integer, nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+    
+    def __init__(self, dishwasher, dishwasherLoads, washer, washerLoads, dryer, dryerLoads, lights, lightsNumber, lightsTime, hvac, hvacTime, hvacTemp,  user_token):
+        self.id = self.set_id()
+        self.dishwasher = dishwasher
+        self.dishwasherLoads = dishwasherLoads
+        self.washer = washer
+        self.washerLoads = washerLoads
+        self.dryer = dryer
+        self.dryerLoads = dryerLoads
+        self.lights = lights
+        self.lightsNumber = lightsNumber
+        self.lightsTime = lightsTime
+        self.hvac = hvac
+        self.hvacTime = hvacTime
+        self.hvacTemp = hvacTemp
+        self.user_token = user_token
+
+
+    def __repr__(self):
+        return f'The following contact has been added to the phonebook: {self.first_name} {self.last_name}'
+
+    def set_id(self):
+        return (secrets.token_urlsafe())
+
+class WasteSchema(ma.Schema):
+    class Meta:
+        fields = ['dishwasher', 'dishwasherLoads', 'washer', 'washerLoads', 'dryer', 'dryerLoads', 'lights',  'lightsNumber','lightsTime', 'hvac', 'hvacTime', 'hvacTemp']
+
+waste_schema = WaterSchema()
+wastes_schema = WaterSchema(many=True)
 

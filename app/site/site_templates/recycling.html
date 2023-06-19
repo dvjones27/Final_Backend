@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+  
+<section class="bg-dark text-light text-center shadow mb-20">
+    <div class="container p-5 bg-dark">
+        <div class="row">
+            <div class="d-md-flex bg-dark align-items-center justify-content-evenly">
+                <h1 class="col text-center"><br>Hello {{ current_user.first_name }}! This is the Recycling Page</h1>
+            </div>
+            <div>
+                <h3 class="col text-center">Please Enter Your Daily Recycling Info. </h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="text-center">
+    <div class="container p-2">
+        <div class="row align-items-center">
+            
+            <form method="post" action = "{{ url_for('site.create_recycling') }}">
+                  
+                <div className="flex flex-col bg-slate-900 p-2 m-2 justify-items-center w-auto  text-lg text-white items-center h-auto bg-auto">
+                    <div>
+                        <h4 className="recycling_questions flex m-2 text-md justify-items-center font-medium text-gray-900 dark:text-white">Select Your Daily Recycling Options</h4>
+                        <div>
+                            <label htmlFor="recyclePaper">Did you recycle paper today?</label>
+                            <select {...register("paper")} 
+                            name="paper" placeholder="Recycled Paper" >
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="recyclePaperAmount">How much paper did you recycle today?</label>
+                            <input type="number" name="paperAmount" placeholder="Paper Amount (ounces)" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="recycleGlass">Did you recycle glass today?</label>
+                            <select {...register("glass")} 
+                            name="glass" placeholder="Recycled Glass" >
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="recycleGlassAmount">How much glass did you recycle today?</label>
+                            <input type="number" name="glassAmount" placeholder="Glass Amount (ounces)" autofocus>
+                        </div>
+                        <div>
+                            <label htmlFor="recyclePlastic">Did you recycle plastic today?</label>
+                            <select {...register("plastic")} 
+                            name="plastic" placeholder="Recycled Plastic" >
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="recyclePlasticAmount">How much plastic did you recycle today?</label>
+                            <input type="number" name="plasticAmount" placeholder="Plastic Amount (ounces)" autofocus>
+                        </div>
+                    </div>
+                    
+                    <button type="submit">Create Daily Recycling Input</button>
+                    
+                    
+                </form>
+            </section>
+
+<section class="text-center">
+        
+        <div class="row align-items-center justify-center p-2 m-2">
+            
+            <h3 class="p-2">Here are the Recycling Emissions Results</h3>
+            <table class="table text-center align-items-center justify-center w-auto h-auto">
+                <thead style="background-color: black; color: white">
+                <tr>
+                    <th><label for="ID">ID:</label><br></th>
+                    <th><label for="paper">Paper:</label><br></th>
+                    <th><label for="paperAmount">Paper Amt:</label><br></th>
+                    <th><label for="plastic">Plastic:</label><br></th>
+                    <th><label for="plasticAmount">Plastic Amt:</label><br></th>
+                    <th><label for="glass">Glass:</label><br></th>
+                    <th><label for="glassAmount">Glass Amt:</label><br></th>
+                    <th><label for="actions">Actions:</label><br></th>
+                </tr>
+            </thead>
+                {% for recycling in recyclings %}
+                
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ recycling.paper }}</td>
+                    <td>{{ recycling.paperAmount }}</td>
+                    <td>{{ recycling.glass }}</td>
+                    <td>{{ recycling.glassAmount }}</td>
+                    <td>{{ recycling.plastic }}</td>
+                    <td>{{ recycling.plasticAmount }}</td>
+                    
+                    
+                    <td class="align-items: center; justify-content: space-evenly; ">
+                        
+                        
+                        <form method="PUT" action="/update_recycling/<id>"  style="align-items: center; justify-content: space-evenly; float: right; position: relative; left: -50%; margin: 2px" >
+                            <input type="hidden" name="update_recycling" value="update_recycling">
+                            <button type="submit" class="fas btn btn-warning text-dark update-button" name="update_recycling"><i class="fa-regular fa-md fa-pen-nib"></i></button>
+                        </form>
+                        <form method="post" action="/delete_homeEnergy/<id>" style="align-items: center; justify-content: space-evenly; float: left; position: relative; right: -50%; margin: 2px" >
+                            <input type="hidden" name="method" value="Delete">
+                            <button type="submit" class="fas btn btn-danger text-dark delete-button" name="delete"><i class="fa-regular fa-md fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+              
+        </div>
+</section>
+{% endblock %}
+

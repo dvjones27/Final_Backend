@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for
-from models import db, User, Transportation, transportation_schema, transportations_schema, HomeEnergy, homeEnergy_schema, homeEnergys_schema
+from models import db, User, Transportation, transportation_schema, transportations_schema, HomeEnergy, homeEnergy_schema, homeEnergys_schema, Recycling, recycling_schema, recyclings_schema, Water, water_schema, waters_schema, Waste, waste_schema, wastes_schema
 from flask_login import current_user, login_required
 
 
@@ -14,12 +14,17 @@ def home():
 def profile():
     return render_template('profile.html')
 
-@site.route('/emissions')
+@site.route('/')
 @login_required
 def emissions():
-    transportations = Transportation.query.all(),
-    homeEnergys = HomeEnergy.query.all()
-    return render_template("emissions.html", transportations=transportations, homeEnergys=homeEnergys )
+    return render_template('emissions.html')
+    # transportations = Transportation.query.all()
+    # homeEnergys = HomeEnergy.query.all()
+    # recyclings = Recycling.query.all()
+    # waters = Water.query.all()
+    # wastes = Waste.query.all()
+    
+    # return render_template("emissions.html", transportations=transportations, homeEnergys=homeEnergys, recyclings=recyclings, waters=waters, wastes=wastes)
 
 @site.route('/transportations')
 @login_required
@@ -32,6 +37,24 @@ def transportations():
 def homeEnergys():
     homeEnergys = HomeEnergy.query.all()
     return render_template('homeEnergy.html', homeEnergys=homeEnergys)
+
+@site.route('/recyclings')
+@login_required
+def recyclings():
+    recyclings = Recycling.query.all()
+    return render_template('recycling.html', recyclings=recyclings)
+
+@site.route('/waters')
+@login_required
+def waters():
+    waters = Waters.query.all()
+    return render_template('water.html', waters=waters)
+
+@site.route('/wastes')
+@login_required
+def wastes():
+    wastes = Waste.query.all()
+    return render_template('waste.html', wastes=wastes)
 
 @site.route('/create_transportation', methods=['POST'])
 @login_required
@@ -73,53 +96,24 @@ def create_homeEnergy():
     
     return redirect(url_for('site.homeEnergy'))
 
-@site.route('/recycling', methods=['POST'])
+@site.route('/create_recycling', methods=['POST'])
 @login_required
-def recycling():
-    travel = request.form['travel']
-    vehicle = request.form['vehicle']
-    fuel = request.form['fuel']
-    carpool = request.form['carpool']
-    miles = request.form['miles']
+def create_recycling():
+    paper = request.form['paper']
+    paperAmount = request.form['paperAmount']
+    glass = request.form['glass']
+    glassAmount = request.form['glassAmount']
+    plastic = request.form['plastic']
+    plasticAmount = request.form['plasticAmount']
     user_token = current_user.token
     
-    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
-    db.session.add(transportation)
-    db.session.commit()
-    
-    return redirect(url_for('site.emissions'))
+    recycling = Recycling(paper=paper, paperAmount=paperAmount, glass=glass, glassAmount=glassAmount, plastic=plastic, plasticAmount=plasticAmount,   user_token=user_token)
 
-@site.route('/water', methods=['POST'])
-@login_required
-def water():
-    travel = request.form['travel']
-    vehicle = request.form['vehicle']
-    fuel = request.form['fuel']
-    carpool = request.form['carpool']
-    miles = request.form['miles']
-    user_token = current_user.token
-    
-    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
-    db.session.add(transportation)
-    db.session.commit()
-    
-    return redirect(url_for('site.emissions'))
 
-@site.route('/waste', methods=['POST'])
-@login_required
-def waste():
-    travel = request.form['travel']
-    vehicle = request.form['vehicle']
-    fuel = request.form['fuel']
-    carpool = request.form['carpool']
-    miles = request.form['miles']
-    user_token = current_user.token
-    
-    transportation = Transportation(travel = travel, vehicle = vehicle, fuel = fuel, carpool = carpool, miles = miles, user_token = user_token )
-    db.session.add(transportation)
+    db.session.add(recycling)
     db.session.commit()
     
-    return redirect(url_for('site.emissions'))
+    return redirect(url_for('site.recyclings'))
 
 @site.route('/update_transportation/<string:id>', methods = ['POST', 'PUT'])
 @login_required

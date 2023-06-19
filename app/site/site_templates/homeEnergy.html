@@ -18,14 +18,14 @@
 
 
 <section class="text-center">
-    <div class="container p-5">
+    <div class="container p-2">
         <div class="row align-items-center">
             
             <form method="post" action = "{{ url_for('site.create_homeEnergy') }}">
                     
                     
                     
-                    <div className="flex flex-col bg-slate-900 p-3 m-3 justify-items-center w-50%  text-lg text-white items-center h-auto bg-auto">
+                    <div className="flex flex-col bg-slate-900 p-2 m-2 justify-items-center w-50%  text-lg text-white items-center h-auto bg-auto">
                         
                         <div>
                         <h4 className="homeEnergy_questions flex m-2 text-md justify-items-center font-medium text-gray-900 dark:text-white">Select Your Daily Home Energy Options</h4>
@@ -114,13 +114,13 @@
                     
                 </form>
             </section>
-            
-        </div>
+
+<section class="text-center">
         
-        <div class="row align-items-center justify-center">
+        <div class="row align-items-center justify-center p-2 m-2">
             
-            <h3 class="p-5">Here are the Home Energy Emissions Results</h3>
-            <table class="table text-center aligm-items-center justify-center w-auto h-auto">
+            <h3 class="p-2">Here are the Home Energy Emissions Results</h3>
+            <table class="table text-center align-items-center justify-center w-auto h-auto">
                 <thead style="background-color: black; color: white">
                 <tr>
                     <th><label for="ID">ID:</label><br></th>
@@ -160,8 +160,8 @@
                         
                         
                         <form method="PUT" action="/update_homeEnergy/<id>"  style="align-items: center; justify-content: space-evenly; float: right; position: relative; left: -50%; margin: 2px" >
-                            <input type="hidden" name="UpdateHomeEnergy" value="UpdateHomeEnergy">
-                            <button type="submit" class="fas btn btn-warning text-dark update-button" name="updateHomeEnergy"><i class="fa-regular fa-md fa-pen-nib"></i></button>
+                            <input type="hidden" name="update_homeEnergy" value="update_homeEnergy">
+                            <button type="submit" class="fas btn btn-warning text-dark update-button" name="update_homeEnergy"><i class="fa-regular fa-md fa-pen-nib"></i></button>
                         </form>
                         <form method="post" action="/delete_homeEnergy/<id>" style="align-items: center; justify-content: space-evenly; float: left; position: relative; right: -50%; margin: 2px" >
                             <input type="hidden" name="method" value="Delete">
@@ -173,7 +173,6 @@
             </table>
               
         </div>
-    </div>
 </section>
 {% endblock %}
 
