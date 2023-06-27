@@ -14,17 +14,17 @@ def home():
 def profile():
     return render_template('profile.html')
 
-@site.route('/')
+@site.route('/emissions')
 @login_required
 def emissions():
-    return render_template('emissions.html')
-    # transportations = Transportation.query.all()
-    # homeEnergys = HomeEnergy.query.all()
-    # recyclings = Recycling.query.all()
-    # waters = Water.query.all()
-    # wastes = Waste.query.all()
-    
-    # return render_template("emissions.html", transportations=transportations, homeEnergys=homeEnergys, recyclings=recyclings, waters=waters, wastes=wastes)
+    # return render_template('emissions.html')
+    transportations = Transportation.query.all()
+    homeEnergys = HomeEnergy.query.all()
+    recyclings = Recycling.query.all()
+    waters = Water.query.all()
+    wastes = Waste.query.all()
+
+    return render_template('emission.html', transportations=transportations, homeEnergys=homeEnergys, recyclings=recyclings, waters=waters, wastes=wastes)
 
 @site.route('/transportations')
 @login_required
